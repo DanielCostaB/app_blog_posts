@@ -9,24 +9,18 @@ import {
   TextInput
 } from "react-native";
 
+import api from "./services/api";
+
 export default function App() {
   const [cards, setCards] = useState([]);
   const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState([]);
-  //const [masterData, setMasterData] = useState([]);
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCards(data);
-        setFilteredData(data);
-      });
+    api.get("/posts").then((response) => {
+      setCards(response.data);
+      setFilteredData(response.data);
+  });
   }, []);
 
   const searchFilter = (text) => {
@@ -54,7 +48,7 @@ export default function App() {
           onChangeText={(text) => searchFilter(text)}
           value={search}
           underlineColorAndroid="transparent"
-          placeholder="Procure Aqui"
+          placeholder="Procure seu Post"
         />
         <FlatList
           data={filteredData}
@@ -72,39 +66,46 @@ function PostsShow(item) {
     <View style={styles.cardContainer}>
       <ScrollView>
         <Text style={styles.cardTitle}>{title}</Text>
-        <Text>{body}</Text>
+        <Text style={styles.cardBody}>{body}</Text>
       </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#D8D8D8", paddingTop: 60 },
+  container: { flex: 1, backgroundColor: "#f59c74", paddingTop: 60 },
 
   cardContainer: {
     borderWidth: 1,
     height: 200,
     backgroundColor: "#FFF",
-    borderColor: "#666666",
-    borderRadius: 4,
+    borderColor: "#FFF",
+    borderRadius: 2,
     marginBottom: 10,
     marginHorizontal: 20,
     padding: 10,
   },
   cardTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 20,
+    fontSize: 16,
+    fontWeight: "regular",
+    marginBottom: 10,
     textAlign: "left",
-    color: "#656565",
+  },
+  cardBody: {
+    fontSize: 14,
+    fontWeight: "regular",
+    marginBottom: 10,
+    textAlign: "left",
+    color: "#666666"
   },
   textInputStyle: {
     height: 40,
+    borderRadius: 3,
     borderWidth: 1,
     paddingLeft: 20,
     margin: 5,
-    borderColor: "#656565",
     backgroundColor: "#FFF",
     margin: 20,
+    borderColor: "#AFB3B0"
   },
 });
