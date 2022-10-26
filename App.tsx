@@ -44,8 +44,8 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView>
-      <Flex padding={4} backgroundColor={"#FFD7B2"} >
+    <SafeAreaView style={styles.container}>
+      <Flex padding={4}  >
         <Stack space={2}>
           <Input
             backgroundColor={"#fff"}
@@ -58,7 +58,7 @@ export default function App() {
                 <Icon as={<MaterialIcons name="search" />} size={5} mr="2" color="muted.400" />
               </Pressable>}
           />
-          <ScrollView w="100%" h="91vh" showsHorizontalScrollIndicator={false} >
+          <ScrollView w="100%" h="86vh" showsHorizontalScrollIndicator={false} >
             <FlatList
               flex={2}
               showsVerticalScrollIndicator={false}
@@ -77,5 +77,5 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff'}
+  container: { flex: 1, backgroundColor: '#FFD7B2'}
 });
